@@ -1,1 +1,14 @@
-
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/smile
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        # dialect: org.hibernate.dialect.MySQL5Dialect
+    # use-new-id-generator-mappings: true
