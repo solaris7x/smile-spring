@@ -4,18 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Version;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
-@Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Entity
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +26,13 @@ public class Staff {
     String phone;
     @Version
     int version;
-    private String department;
+    @ManyToOne
+    private Department department;
     private String designation;
 
-    @Override
-    public String toString() {
-        return "Staff [id=" + id + ", name=" + name + ", email=" + email + ", phone="
-                + phone + "department=" + department + ", designation=" + designation + "]";
-    }
+    // @Override
+    // public String toString() {
+    // return "Staff [id=" + id + ", name=" + name + ", email=" + email + ", phone="
+    // + phone + "department=" + department + ", designation=" + designation + "]";
+    // }
 }
