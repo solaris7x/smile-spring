@@ -1,6 +1,8 @@
 package com.smile.rest1.controller.Admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smile.rest1.dao.DepartmentRepo;
@@ -31,7 +33,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}")
-    public Department departmentById(int id) {
+    public Department departmentById(@PathVariable Integer id) {
         return departmentRepository.findById(id).get();
     }
 
@@ -50,8 +52,10 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteDepartment(@RequestParam Integer id) {
+    public Map<String, String> deleteDepartment(@PathVariable Integer id) {
         departmentRepository.deleteById(id);
-        return "Department deleted with id: " + id;
+        HashMap<String, String> res = new HashMap<String, String>();
+        res.put("message", "Department deleted with id: " + id);
+        return res;
     }
 }

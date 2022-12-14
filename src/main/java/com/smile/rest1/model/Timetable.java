@@ -1,16 +1,13 @@
 package com.smile.rest1.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Version;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
@@ -18,13 +15,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Department {
+public class Timetable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Integer id;
+    String date;
+    String course;
     String name;
-    String code;
-    // @OneToMany
-    // Set<Staff> staff = new HashSet<>();
+    String time;
+
+    @Version
+    int version;
 
 }

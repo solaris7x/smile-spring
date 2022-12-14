@@ -1,20 +1,24 @@
 package com.smile.rest1.controller.Admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smile.rest1.dao.CoursesRepo;
 import com.smile.rest1.model.Course;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/admin/course")
 public class CourseController {
@@ -29,7 +33,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public Course courseById(int id) {
+    public Course courseById(@PathVariable Integer id) {
         return courseRepository.findById(id).get();
     }
 
@@ -48,8 +52,11 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public String deletecourse(@RequestParam Integer id) {
+    public Map<String, String> deleteCourse(@PathVariable Integer id) {
         courseRepository.deleteById(id);
-        return "course deleted with id: " + id;
+        HashMap<String, String> res = new HashMap<String, String>();
+        res.put("message", "Course deleted with id: " + id);
+        return res;
     }
+
 }

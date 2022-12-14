@@ -20,15 +20,21 @@ import lombok.ToString;
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String name;
+    Long id;
+    String firstName;
+    String lastName;
+    String gender;
+    String dob;
     String email;
     String phone;
+    String password;
+    String experiance;
+    String qualification;
+    String designation;
     @Version
     int version;
-    @ManyToOne
-    private Department department;
-    private String designation;
+    // @ManyToOne
+    // private Department department;
 
     // @Override
     // public String toString() {
