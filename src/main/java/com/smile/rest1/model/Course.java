@@ -21,6 +21,6 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
-    Set<Student> students;
+    // @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
+    // Set<Student> students;
 }
