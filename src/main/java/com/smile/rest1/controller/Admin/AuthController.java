@@ -1,5 +1,9 @@
 package com.smile.rest1.controller.Admin;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +23,44 @@ public class AuthController {
     private StudentRepo studentRepository;
 
     @PostMapping("login")
-    public String login(@RequestBody String username) {
-        return "Login";
-    }
+    public Map<String, String> login(@RequestBody Map<String, String> user) {
+        System.out.println(user);
+        // If admin
+        if (user.get("role").equals("Admin") && user.get("password").equals("admin")) {
+            HashMap<String, String> res = new HashMap<String, String>();
+            res.put("message", "Admin logged in");
+            res.put("role", "Admin");
+            res.put("name", "Admin");
+            return res;
+        }
+        // If staff
+        else if (user.get("role").equals("Staff") && user.get("password").equals("staff")) {
+            HashMap<String, String> res = new HashMap<String, String>();
+            res.put("message", "Staff logged in");
+            res.put("role", "Staff");
+            res.put("name", "Staff");
+            return res;
+        }
+        // If student
+        else if (user.get("role").equals("Student")) {
+            List<Student> students = studentRepository.findByEmail(user.get("email"));
+            Student student = students.get(0);
+            System.out.println(student);
+            if (student != null && student.getPassword().equals(user.get("password"))) {
+                // return student.toMap();
+                HashMap<String, String> res = new HashMap<String, String>();
+                res.put("message", "Student logged in");
+                res.put("role", "Student");
+                res.put("name", student.getFirstName());
+                return res;
+            }
+        }
+        // Invalid creds
+        HashMap<String, String> res = new HashMap<String, String>();
+        res.put("message", "Invalid credentials");
+        return res;
+
+    };
 
     @PostMapping("register")
     public Student register(@RequestBody Student student) {
