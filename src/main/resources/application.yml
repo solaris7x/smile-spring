@@ -14,3 +14,9 @@ spring:
         format_sql: true
         # dialect: org.hibernate.dialect.MySQL5Dialect
     # use-new-id-generator-mappings: true
+
+# ENV
+env:
+  version: 1.xx
+  adminPassword: admin
+  staffPassword: staff

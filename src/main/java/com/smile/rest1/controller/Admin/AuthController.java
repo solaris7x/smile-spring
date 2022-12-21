@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +23,18 @@ public class AuthController {
     @Autowired
     private StudentRepo studentRepository;
 
+    // ENV variables
+    @Value("${env.adminPassword}")
+    private String adminPassword;
+
+    @Value("${env.staffPassword}")
+    private String staffPassword;
+
     @PostMapping("login")
     public Map<String, String> login(@RequestBody Map<String, String> user) {
         System.out.println(user);
         // If admin
-        if (user.get("role").equals("Admin") && user.get("password").equals("admin")) {
+        if (user.get("role").equals("Admin") && user.get("password").equals(adminPassword)) {
             HashMap<String, String> res = new HashMap<String, String>();
             res.put("message", "Admin logged in");
             res.put("role", "Admin");
@@ -34,7 +42,7 @@ public class AuthController {
             return res;
         }
         // If staff
-        else if (user.get("role").equals("Staff") && user.get("password").equals("staff")) {
+        else if (user.get("role").equals("Staff") && user.get("password").equals(staffPassword)) {
             HashMap<String, String> res = new HashMap<String, String>();
             res.put("message", "Staff logged in");
             res.put("role", "Staff");
